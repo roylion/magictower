@@ -3,8 +3,6 @@ import cn.roylion.magictower.magictower.pojo.Cell;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,7 +24,7 @@ public class MagicTowerTest implements ApplicationContextAware {
     @Test
     public void test(){
         String[][] map = {
-                {"0002","0002","0002","0002","0002","0002","0002","0002","0002","0002","0002",},// 1
+                {"0002","0002","0003","0002","0002","0002","0002","0002","0002","0002","0002",},// 1
                 {"0001","0001","0001","0001","0001","0001","0001","0001","0001","0001","0002",},// 2
                 {"0002","0002","0002","0002","0002","0001","0002","0002","0002","0001","0002",},// 3
                 {"0002","0002","0002","0001","0002","0001","0002","0002","0002","0001","0002",},// 4
@@ -37,16 +35,22 @@ public class MagicTowerTest implements ApplicationContextAware {
                 {"0002","0002","0002","0001","0001","0002","0001","0001","0001","0002","0001",},// 9
                 {"0002","0002","0002","0001","0002","0002","0002","0001","0002","0002","0002",},// 10
                 {"0002","0002","0002","0001","0002","0002","0002","0001","0002","0002","0002",}};// 11
+
+
         JPanel jPanel = new JPanel() {
+            int finalCount = 0;
             @Override
             public void paint(Graphics g) {
                 for (int y = 0 ; y < map.length ; ++y){
                     for(int x = 0 ; x < map[y].length ; ++x){
                         Cell cell = ctx.getBean(map[y][x],Cell.class);
+
+                        int index = finalCount % cell.getImages().length;
                         if(cell != null)
-                            g.drawImage(cell.getImages()[0],x*32,y*32,null);
+                            g.drawImage(cell.getImages()[index],x*32,y*32,null);
                         else
-                            g.drawImage(cell.getImages()[0],x*32,y*32,null);
+                            g.drawImage(cell.getImages()[index],x*32,y*32,null);
+                        finalCount++;
                     }
                 }
             }
@@ -72,5 +76,11 @@ public class MagicTowerTest implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ctx = applicationContext;
+    }
+
+    @Test
+    public void test2(){
+        Cell bean = ctx.getBean("0003", Cell.class);
+        System.out.println(bean);
     }
 }
