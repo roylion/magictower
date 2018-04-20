@@ -39,9 +39,22 @@ public class Img {
         }
     }
 
+    public static Image[] getImgs(String code,int num){
+        if (num==1) {
+            return new Image[]{Img.getImg(code+".bmp")};
+        }
+        Image[] images = new Image[num];
+        for (int i = 0; i < num; i++) {
+            images[i] = Img.getImg(code+"-"+(i+1)+".bmp");
+        }
+        return images;
+    }
+
     public static Image resize(Image image, int width, int height){
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         newImage.getGraphics().drawImage(image,0,0,width,height,null);
         return newImage;
     }
+
+
 }

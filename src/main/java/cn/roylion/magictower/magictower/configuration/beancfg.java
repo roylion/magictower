@@ -20,19 +20,62 @@ public class beancfg {
     @Autowired
     private Environment env;
 
-    @Bean("0001")
-    public Cell wall(){
-        return CellFactory.getInstance("0001",env);
+    @Bean
+    public Cell c0001(){
+        return CellFactory.getInstance("c0001",env);
     }
 
-    @Bean("0002")
-    public Cell floor(){
-        return CellFactory.getInstance("0002",env);
+    @Bean
+    public Cell c0002(){
+        return CellFactory.getInstance("c0002",env);
     }
 
-    @Bean("0003")
+    @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public SoldierImpl sold0003(){
-        return MonsterFactory.getInstance("0003",env);
+    public SoldierImpl m0001(){
+        return MonsterFactory.getInstance("m0001",env);
     }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0002(){
+        return MonsterFactory.getInstance("m0002",env);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0003(){
+        return MonsterFactory.getInstance("m0003",env);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0004(){
+        return MonsterFactory.getInstance("m0004",env);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0005(){
+        return MonsterFactory.getInstance("m0005",env);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0007(){
+        return MonsterFactory.getInstance("m0007",env);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0010(){
+        return MonsterFactory.getInstance("m0010",env);
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public SoldierImpl m0012(){
+        return MonsterFactory.getInstance("m0012",env);
+    }
+
 }

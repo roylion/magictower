@@ -20,11 +20,7 @@ public class CellFactory {
             cell.setCode(code);
             cell.setName(str[0]);
             cell.setIswalk(Boolean.valueOf(str[1]));
-            Image[] images = new Image[str.length - 2];
-            for (int i = 2; i < str.length; i++) {
-                images[i - 2] = Img.getImg(str[i]);
-            }
-            cell.setImages(images);
+            cell.setImages(Img.getImgs(code,Integer.valueOf(str[2])));
         }
         return cell;
     }
