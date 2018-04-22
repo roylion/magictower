@@ -5,11 +5,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Enumeration;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,18 +28,19 @@ public class MagicTowerTest implements ApplicationContextAware {
 
     @Test
     public void test(){
+
         String[][] map = {
-                {"c0002","c0002","c0002","m0001","m0002","m0001","c0002","c0002","c0002","c0002","c0002",},// 1
-                {"c0001","c0001","c0001","c0001","c0001","c0001","c0001","c0001","c0001","c0001","c0002",},// 2
-                {"c0002","c0002","m0004","c0002","c0002","c0001","c0002","c0002","c0002","c0001","c0002",},// 3
-                {"c0002","m0004","c0002","c0001","c0002","c0001","c0002","c0002","c0002","c0001","c0002",},// 4
-                {"c0001","c0002","c0001","c0001","c0002","c0001","c0001","c0001","m0003","c0001","c0002",},// 5
-                {"c0002","m0005","c0002","c0001","c0002","c0002","m0012","m0001","m0007","c0001","c0002",},// 6
-                {"c0002","c0002","c0002","c0001","c0002","c0001","c0001","c0001","c0001","c0001","c0002",},// 7
-                {"c0001","c0002","c0001","c0001","c0002","c0002","c0002","c0002","c0002","c0002","c0002",},// 8
-                {"c0002","m0005","c0002","c0001","c0001","c0002","c0001","c0001","c0001","c0002","c0001",},// 9
-                {"c0002","c0002","c0002","c0001","c0002","c0002","c0002","c0001","c0002","m0010","c0002",},// 10
-                {"c0002","c0002","c0002","c0001","c0002","c0002","c0002","c0001","c0002","c0002","c0002",}};// 11
+                {"c2","c2","c2","m1","m2","m1","c2","c2","c2","c2","c2",},// 1
+                {"c1","c1","c1","c1","c1","c1","c1","c1","c1","c1","c2",},// 2
+                {"p1","c2","m4","p8","c2","c1","p1","p5","p1","c1","c2",},// 3
+                {"p5","m4","p3","c1","c2","c1","p1","p5","p1","c1","c2",},// 4
+                {"c1","p8","c1","c1","c2","c1","c1","c1","m3","c1","c2",},// 5
+                {"p5","m5","c2","c1","c2","p8","m12","m1","m7","c1","c2",},// 6
+                {"p4","c2","p6","c1","c2","c1","c1","c1","c1","c1","c2",},// 7
+                {"c1","p8","c1","c1","c2","c2","c2","c2","c2","c2","c2",},// 8
+                {"c2","m5","c2","c1","c1","p10","c1","c1","c1","p8","c1",},// 9
+                {"p1","p2","p5","c1","c2","c2","c2","c1","p5","m10","p6",},// 10
+                {"p1","c2","p5","c1","c2","c2","c2","c1","p5","p5","p5",}};// 11
 
         Cell[][] cells= new Cell[11][11];
         for (int y = 0 ; y < map.length ; ++y) {
@@ -72,7 +78,7 @@ public class MagicTowerTest implements ApplicationContextAware {
         while(true){
             jPanel.repaint();
             try {
-                TimeUnit.MILLISECONDS.sleep(500);
+                TimeUnit.MILLISECONDS.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -86,10 +92,26 @@ public class MagicTowerTest implements ApplicationContextAware {
 
     @Test
     public void test2(){
-        Cell bean = ctx.getBean("c0001", Cell.class);
-        Cell bean2 = ctx.getBean("c0001", Cell.class);
-        Cell bean3 = ctx.getBean("m0001", Cell.class);
-        Cell bean4 = ctx.getBean("m0001", Cell.class);
+        Cell bean = ctx.getBean("c1", Cell.class);
+        Cell bean2 = ctx.getBean("c1", Cell.class);
+        Cell bean3 = ctx.getBean("m1", Cell.class);
+        Cell bean4 = ctx.getBean("m1", Cell.class);
         System.out.println(bean);
+    }
+
+    @Test
+    public void test3() throws Exception {
+        Properties p = new Properties();
+        p.load(new FileInputStream("D:\\Roylion\\workspace\\magictower\\src\\main\\resources\\code.properties"));
+
+        Enumeration<?> enumeration = p.propertyNames();
+        while (enumeration.hasMoreElements()){
+            System.out.println(enumeration.nextElement());
+        }
+
+    }
+
+    public void makeMap (){
+
     }
 }

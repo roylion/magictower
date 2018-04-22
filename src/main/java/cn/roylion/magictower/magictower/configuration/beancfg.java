@@ -14,9 +14,9 @@ import org.springframework.core.env.Environment;
 /**
  * Created by Administrator on 2018/4/20.
  */
-@Configuration
+//@Configuration
 public class beancfg {
-
+/*
     @Autowired
     private Environment env;
 
@@ -76,6 +76,6 @@ public class beancfg {
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public SoldierImpl m0012(){
         return MonsterFactory.getInstance("m0012",env);
-    }
+    }*/
 
 }

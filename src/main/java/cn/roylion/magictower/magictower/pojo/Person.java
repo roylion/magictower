@@ -59,4 +59,6 @@ public class Person extends Cell {
     public void setSkills(Skill[] skills) {
         this.skills = skills;
     }
+
+
 }

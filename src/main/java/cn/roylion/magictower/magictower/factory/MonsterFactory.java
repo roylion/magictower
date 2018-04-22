@@ -3,13 +3,15 @@ package cn.roylion.magictower.magictower.factory;
 import cn.roylion.magictower.magictower.configuration.Img;
 import cn.roylion.magictower.magictower.pojo.SoldierImpl;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Administrator on 2018/4/20.
  */
+@Component
 public class MonsterFactory {
 
-    public static SoldierImpl getInstance(String code, Environment env) {
+    public SoldierImpl getInstance(String code, Environment env) {
         SoldierImpl soldoier = null;
         if(env.containsProperty(code)) {
             soldoier = new SoldierImpl();
