@@ -84,6 +84,7 @@ public class MagicTower implements BeanFactoryAware {
             DefaultListableBeanFactory DLBeanFactory = (DefaultListableBeanFactory) beanFactory;
             DLBeanFactory.registerBeanDefinition(code,beanDefinitionBuilder.getBeanDefinition());
             System.out.println(code + "载入成功！");
+
         }
     }
 
