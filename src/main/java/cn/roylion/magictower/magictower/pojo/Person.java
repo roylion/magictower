@@ -12,6 +12,13 @@ public class Person extends Cell {
     protected int exp;
     protected Skill[] skills;
 
+    public void attack(Person person){
+        int damage = this.ack - person.def;
+        person.hp -= damage;
+    }
+
+
+
     public int getHp() {
         return hp;
     }

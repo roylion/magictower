@@ -1,18 +1,22 @@
+import cn.roylion.magictower.magictower.Game;
 import cn.roylion.magictower.magictower.MagicTower;
 import cn.roylion.magictower.magictower.pojo.Cell;
+import cn.roylion.magictower.magictower.pojo.Prop;
+import cn.roylion.magictower.magictower.pojo.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +29,12 @@ import java.util.concurrent.TimeUnit;
 public class MagicTowerTest implements ApplicationContextAware {
 
     private ApplicationContext ctx;
+
+    @Autowired
+    private Role role;
+
+    @Autowired
+    private Game game;
 
     @Test
     public void test(){
@@ -58,25 +68,65 @@ public class MagicTowerTest implements ApplicationContextAware {
                         Cell cell = cells[y][x];
 
                         int index = finalCount % cell.getImages().length;
-                        if(cell != null)
-                            g.drawImage(cell.getImages()[index],x*32,y*32,null);
-                        else
-                            g.drawImage(cell.getImages()[index],x*32,y*32,null);
+                        if(cell != null) {
+                            g.drawImage(cell.getImages()[index], x * 32, y * 32, null);
+                        }
+                        g.drawImage(role.getImages()[role.getFace()], role.getX()*32, role.getY()*32,null);
                         finalCount++;
                     }
                 }
             }
         };
-        JFrame game = new JFrame("map");
-        game.add(jPanel);
-        game.setSize(352,352);
-        game.setLocationRelativeTo(null);
-        game.setResizable(false);
-        game.setUndecorated(true);
-        game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        game.setVisible(true);
+
+        JFrame frame = new JFrame("map");
+        frame.add(jPanel);
+        frame.setSize(352,352);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setUndecorated(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        KeyListener kl = new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                int y = role.getY();
+                int x = role.getX();
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_UP:
+                        y--;
+                        role.setFace(0);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        y++;
+                        role.setFace(1);
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        x--;
+                        role.setFace(2);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        x++;
+                        role.setFace(3);
+                        break;
+                    case KeyEvent.VK_Q:
+                        System.exit(0);
+                    default:
+                }
+                if(x<11 && y<11 && cells[y][x].isWalk()) {
+                    role.setX(x);
+                    role.setY(y);
+                }
+                jPanel.repaint();
+            }
+        };
+
+        jPanel.addKeyListener(kl);
+        jPanel.setFocusable(true);
+        jPanel.requestFocusInWindow();
+
         while(true){
             jPanel.repaint();
+            game.finalCount +=1;
             try {
                 TimeUnit.MILLISECONDS.sleep(300);
             } catch (InterruptedException e) {
@@ -102,7 +152,7 @@ public class MagicTowerTest implements ApplicationContextAware {
     @Test
     public void test3() throws Exception {
         Properties p = new Properties();
-        p.load(new FileInputStream("D:\\Roylion\\workspace\\magictower\\src\\main\\resources\\code.properties"));
+        p.load(MagicTower.class.getClassLoader().getResourceAsStream("code.properties"));
 
         Enumeration<?> enumeration = p.propertyNames();
         while (enumeration.hasMoreElements()){
@@ -111,7 +161,13 @@ public class MagicTowerTest implements ApplicationContextAware {
 
     }
 
+    @Test
     public void makeMap (){
+        Role role = new Role();
+        role.setHp(100);
+        Prop p1 = ctx.getBean("p1", Prop.class);
+        p1.takeEffect(role);
 
+        System.out.println(11);
     }
 }

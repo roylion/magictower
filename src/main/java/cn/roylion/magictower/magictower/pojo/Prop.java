@@ -4,16 +4,16 @@ import cn.roylion.magictower.magictower.util.StringUtils;
 
 public class Prop extends Cell {
 
-    protected String hp;
-    protected String ack;
-    protected String def;
-    protected String gold;
-    protected String exp;
-    protected String lv;
-    protected String yellowKey;
-    protected String blueKey;
-    protected String redKey;
-    protected String remark;
+    protected String hp = "";
+    protected String ack = "";
+    protected String def = "";
+    protected String gold = "";
+    protected String exp = "";
+    protected String lv = "";
+    protected String yellowKey = "";
+    protected String blueKey = "";
+    protected String redKey = "";
+    protected String remark = "";
 
     public boolean takeEffect(Role role){
         role.hp = StringUtils.eval(role.hp + hp);
@@ -37,6 +37,8 @@ public class Prop extends Cell {
 
         return true;
     }
+
+
 
     public String getHp() {
         return hp;

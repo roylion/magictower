@@ -8,7 +8,7 @@ import java.awt.*;
 public class Cell {
 
     protected String name;
-    protected boolean iswalk;
+    protected boolean walk;
     protected Image[] images;
     protected String code;
 
@@ -20,12 +20,12 @@ public class Cell {
         this.name = name;
     }
 
-    public boolean isIswalk() {
-        return iswalk;
+    public boolean isWalk() {
+        return walk;
     }
 
-    public void setIswalk(boolean iswalk) {
-        this.iswalk = iswalk;
+    public void setWalk(boolean walk) {
+        this.walk = walk;
     }
 
     public Image[] getImages() {

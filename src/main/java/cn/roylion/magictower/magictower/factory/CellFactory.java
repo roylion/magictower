@@ -5,8 +5,6 @@ import cn.roylion.magictower.magictower.pojo.Cell;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-
 /**
  * Created by Administrator on 2018/4/20.
  */
@@ -21,7 +19,7 @@ public class CellFactory {
             String[] str = attrs.split(" ");
             cell.setCode(code);
             cell.setName(str[0]);
-            cell.setIswalk(Boolean.valueOf(str[1]));
+            cell.setWalk(Boolean.valueOf(str[1]));
             cell.setImages(Img.getImgs(code,Integer.valueOf(str[2])));
         }
         return cell;

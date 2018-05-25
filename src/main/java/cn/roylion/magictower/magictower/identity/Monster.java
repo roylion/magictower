@@ -5,7 +5,7 @@ import cn.roylion.magictower.magictower.pojo.Person;
 /**
  * Created by Administrator on 2018/4/20.
  */
-public interface Soldier {
+public interface Monster {
 
-    void fight(Person person);
+    void attack(Person person);
 }
